@@ -8,10 +8,10 @@ class FontImporterTest < Test::Unit::TestCase
     Compass.reset_configuration!
     @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'svg')
     @images_tmp_path = File.join(File.expand_path('../../', __FILE__), 'tmp')
-    ::FileUtils.cp_r @images_src_path, @images_tmp_path
+    Dir.mkdir @images_tmp_path
 
     config = StringIO.new <<-SCSS
-      images_path = #{@images_tmp_path.inspect}
+      images_path = #{@images_src_path.inspect}
       css_path = #{@images_tmp_path.inspect}
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
