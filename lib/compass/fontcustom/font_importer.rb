@@ -77,7 +77,7 @@ module Compass
       # Start the Fontcustom generator
       def self.content_for_fonts(uri, name)
         args = []
-        args << Compass.configuration.images_path.to_s
+        args << File.join(Compass.configuration.images_path.to_s, name)
         args << '-o'
         args << Compass.configuration.css_path.to_s
         args << "-n #{name}"

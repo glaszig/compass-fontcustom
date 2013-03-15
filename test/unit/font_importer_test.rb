@@ -6,7 +6,7 @@ class FontImporterTest < Test::Unit::TestCase
 
   def setup
     Compass.reset_configuration!
-    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'svg')
+    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures')
     @images_tmp_path = File.join(File.expand_path('../../', __FILE__), 'tmp')
     Dir.mkdir @images_tmp_path
 
@@ -34,8 +34,10 @@ class FontImporterTest < Test::Unit::TestCase
   end
 
   it "should generate font classes" do
+    fontname = 'myfont'
+
     css = render <<-SCSS
-      @import "myfont/*.svg";
+      @import "#{fontname}/*.svg";
     SCSS
 
     assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
