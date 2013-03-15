@@ -38,6 +38,9 @@ class FontImporterTest < Test::Unit::TestCase
       @import "myfont/*.svg";
     SCSS
 
+    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
+    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
+
     assert css =~ %r{.icon-c}
     assert css =~ %r{.icon-d}
   end
