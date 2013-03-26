@@ -6,20 +6,22 @@ class FontImporterTest < Test::Unit::TestCase
 
   def setup
     Compass.reset_configuration!
-    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures')
-    @images_tmp_path = File.join(File.expand_path('../../', __FILE__), 'tmp')
-    Dir.mkdir @images_tmp_path
+    @project_path = File.expand_path('../../', __FILE__)
+    @tmp_path = File.join(@project_path, 'tmp')
+    @fonts_tmp_path = File.join(@tmp_path, 'fonts')
+    Dir.mkdir @tmp_path
 
     config = StringIO.new <<-SCSS
-      images_path = #{@images_src_path.inspect}
-      css_path = #{@images_tmp_path.inspect}
+      project_path = #{@project_path.inspect}
+      css_path = #{@tmp_path.inspect}
+      fonts_dir = #{"fixtures".inspect}
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
   end
 
   def teardown
     Compass.reset_configuration!
-    ::FileUtils.rm_r @images_tmp_path
+    ::FileUtils.rm_r @tmp_path
   end
 
   def render(scss)
@@ -43,8 +45,8 @@ class FontImporterTest < Test::Unit::TestCase
     assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
     assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
 
-    assert css =~ %r{.icon-c}
-    assert css =~ %r{.icon-d}
+    assert css =~ %r{.icon-c}i, "icon css class missing"
+    assert css =~ %r{.icon-d}i, "icon css class missing"
   end
 
   it "should skip file name hashes if option is set" do

@@ -1,0 +1,29 @@
+
+$<%= name %>-font-base-class: ".<%= name %>-font" !default;
+
+@font-face {
+  font-family: "<%= name %>";
+  src: font-url("<%= name %>.eot?#iefix") format("embedded-opentype"),
+       font-url("<%= name %>.woff") format("woff"),
+       font-url("<%= name %>.ttf") format("truetype"),
+       font-url("<%= name %>.svg#<%= name %>") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#{$<%= name %>-font-base-class} {
+	font-family: "<%= name %>";
+}
+
+@mixin <%= name %>-font-letter($index) {
+  @extend #{$<%= name %>-font-base-class};
+  &:before {
+  	content: letter($index);
+  }
+}
+
+<% letter_names.each_with_index do |letter, index| %>
+.icon-<%= letter %> {
+	@include <%= name %>-font-letter(<%= index %>);
+}
+<% end %>
