@@ -1,6 +1,7 @@
 require "sass/plugin"
 require "compass"
 require "compass/fontcustom/version"
+require "compass/fontcustom/sass_extensions"
 require "compass/fontcustom/font_importer"
 
 module Compass
