@@ -35,18 +35,20 @@ class FontImporterTest < Test::Unit::TestCase
     Sass::Engine.new(scss, options).render
   end
 
-  it "should generate font classes" do
+  def test_should_generate_font_classes
     fontname = 'myfont'
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
+      @include all-myfont-letters;
     SCSS
 
     assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
     assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
 
-    assert css =~ %r{.icon-c}i, "icon css class missing"
-    assert css =~ %r{.icon-d}i, "icon css class missing"
+    assert css =~ %r{.#{fontname}-font}, "base font class missing"
+    assert css =~ %r{.icon-#{fontname}-c}i, "icon css class missing"
+    assert css =~ %r{.icon-#{fontname}-d}i, "icon css class missing"
   end
 
   it "should skip file name hashes if option is set" do
