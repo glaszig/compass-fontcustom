@@ -56,13 +56,10 @@ class FontImporterTest < Test::Unit::TestCase
       @import "#{fontname}/*.svg";
     SCSS
 
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.eot')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.svg')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.ttf')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.woff')
-
+    %w(fontcustom.css fontcustom-ie7.css myfont.svg myfont.ttf myfont.woff).each do |f|
+      filename = File.join(Compass.configuration.css_path, f)
+      assert File.exists?(filename), "File '#{f}' missing"
+    end
 
     assert css =~ %r{.icon-c}
     assert css =~ %r{.icon-d}
