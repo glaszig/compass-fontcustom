@@ -82,6 +82,7 @@ module Compass
         args << Compass.configuration.css_path.to_s
         args << "-n"
         args << name
+        args << '--nohash' if Compass.configuration.no_fontcustom_hash
         ::Fontcustom::Generator.start(args)
         File.read(File.join(Compass.configuration.css_path.to_s, 'fontcustom.css'))
       end
