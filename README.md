@@ -25,13 +25,13 @@ This will import `fontcustom.css` into your stylesheet so that you can use the f
 
 The font files will be searched in your project's `images_path` and be written to the `css_path`.
 
-## Disabling File name hashes
+## Disabling file name hashes
 
-You can choose to disable file name hashes, if you're already using an asset pipeline that handles this for you : 
-Use the `no_fontcustom_hash` compass option in `config.rb`
+You can choose to disable file name hashes if you're already using an asset pipeline that handles this for you:
+Use the `fontcustom_hash` compass option in `config.rb`
 
     compass_config do |config|
-    	config.no_fontcustom_hash = true
+      config.fontcustom_hash = false
     end
 
 ## Contributing
