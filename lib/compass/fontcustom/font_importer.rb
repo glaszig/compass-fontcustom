@@ -80,7 +80,8 @@ module Compass
         args << File.join(Compass.configuration.images_path.to_s, name)
         args << '-o'
         args << Compass.configuration.css_path.to_s
-        args << "-n #{name}"
+        args << "-n"
+        args << name
         ::Fontcustom::Generator.start(args)
         File.read(File.join(Compass.configuration.css_path.to_s, 'fontcustom.css'))
       end
