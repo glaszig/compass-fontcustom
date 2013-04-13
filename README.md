@@ -18,12 +18,13 @@ Syntactically it works like Compass' sprites feature.
 You can let Font Custom generate your fonts upon Compass' css compilation:
 
 ```css
-@import "myfont/*.svg"
+@import "myfont/*.svg";
+@include all-myfont-letters;
 ```
 
 This will import `fontcustom.css` into your stylesheet so that you can use the font `myfont` and the generated classes.
 
-The font files will be searched in your project's `images_path` and be written to the `css_path`.
+The font files will be searched in `images_path/myfont` and be written to Compass' `fonts_path`.
 
 ## Disabling file name hashes
 
