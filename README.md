@@ -1,4 +1,4 @@
-# Compass::Fontcustom
+# Compass::Fontcustom [![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=master)](https://travis-ci.org/glaszig/compass-fontcustom)
 
 This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Compass](http://compass-style.org).
 
