@@ -34,12 +34,11 @@ module Compass
         end
 
         def letter_names(uri)
-          folder = Compass.configuration.fonts_path.to_s
+          folder = Compass.configuration.images_path.to_s
           files = Dir[File.join(folder, uri)].sort
 
           if files.empty?
-            path = Compass.configuration.fonts_path
-            raise Compass::SpriteException, %Q{No files were found in the fonts path matching "#{uri}". Your current font path is: #{path}}
+            raise Compass::SpriteException, %Q{No files were found in the fonts path matching "#{uri}". Your current font path is: #{folder}}
           end
 
           files.map { |f| File.basename(f)[0..-5] }
@@ -57,9 +56,9 @@ module Compass
 
         def generate_font_files(name)
           args = []
-          args << File.join(Compass.configuration.fonts_path.to_s, name)
+          args << File.join(Compass.configuration.images_path.to_s, name)
           args << '-o'
-          args << Compass.configuration.css_path.to_s
+          args << Compass.configuration.fonts_path.to_s
           args << "-n"
           args << name
           args << '--nohash' unless Compass.configuration.fontcustom_hash

@@ -7,21 +7,21 @@ class FontImporterTest < Test::Unit::TestCase
   def setup
     Compass.reset_configuration!
     @project_path = File.expand_path('../../', __FILE__)
-    @tmp_path = File.join(@project_path, 'tmp')
-    @fonts_tmp_path = File.join(@tmp_path, 'fonts')
-    Dir.mkdir @tmp_path
+    @output_path  = File.join(@project_path, '.output')
+    @fonts_path   = File.join(@output_path, 'fonts')
+    FileUtils.mkdir_p @fonts_path
 
     config = StringIO.new <<-SCSS
       project_path = #{@project_path.inspect}
-      css_path = #{@tmp_path.inspect}
-      fonts_dir = #{"fixtures".inspect}
+      images_dir   = #{"fixtures".inspect}
+      css_dir      = #{".output".inspect}
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
   end
 
   def teardown
     Compass.reset_configuration!
-    ::FileUtils.rm_r @tmp_path
+    FileUtils.rm_r @output_path
   end
 
   def render(scss)
@@ -38,38 +38,35 @@ class FontImporterTest < Test::Unit::TestCase
   def test_should_generate_font_classes
     fontname = 'myfont'
 
+    # binding.pry
+
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
       @include all-myfont-letters;
     SCSS
 
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
-
     assert css =~ %r{.#{fontname}-font}, "base font class missing"
-    assert css =~ %r{.icon-#{fontname}-c}i, "icon css class missing"
-    assert css =~ %r{.icon-#{fontname}-d}i, "icon css class missing"
+    assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
+    assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
   end
 
-  it "should skip file name hashes if option is set" do
+  def test_should_skip_file_name_hashes_if_option_is_set
     fontname = 'myfont'
 
     Compass.configuration.fontcustom_hash = false
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
+      @include all-myfont-letters;
     SCSS
 
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.eot')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.svg')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.ttf')
-    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.woff')
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.svg')
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.ttf')
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.woff')
 
-
-    assert css =~ %r{.icon-c}
-    assert css =~ %r{.icon-d}
+    assert css =~ %r{.#{fontname}-font}, "base font class missing"
+    assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
+    assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
   end
 
 end
