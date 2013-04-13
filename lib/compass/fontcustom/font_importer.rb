@@ -1,9 +1,5 @@
 require 'fontcustom/generator'
 
-Compass::Configuration.add_configuration_property(:no_fontcustom_hash, "disables fontcustom file name hashing") do
-  false
-end
-
 module Compass
   module Fontcustom
 
@@ -86,7 +82,7 @@ module Compass
         args << Compass.configuration.css_path.to_s
         args << "-n"
         args << name
-        args << '--nohash' if Compass.configuration.no_fontcustom_hash
+        args << '--nohash' unless Compass.configuration.fontcustom_hash
         ::Fontcustom::Generator.start(args)
         File.read(File.join(Compass.configuration.css_path.to_s, 'fontcustom.css'))
       end

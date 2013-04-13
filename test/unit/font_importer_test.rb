@@ -50,7 +50,7 @@ class FontImporterTest < Test::Unit::TestCase
   it "should skip file name hashes if option is set" do
     fontname = 'myfont'
 
-    Compass.configuration.no_fontcustom_hash = true
+    Compass.configuration.fontcustom_hash = false
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
