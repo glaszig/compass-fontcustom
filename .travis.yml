@@ -1,5 +1,7 @@
 language: ruby
-before_install: which fontforge || brew install fontforge eot-utils ttfautohint
+before_install:
+	- which fontforge || sudo apt-get update -qq
+	- which fontforge || sudo apt-get install -qq fontforge eot-utils ttfautohint
 rvm:
   - 1.9.3
   - 2.0.0
