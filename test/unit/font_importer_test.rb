@@ -47,4 +47,25 @@ class FontImporterTest < Test::Unit::TestCase
     assert css =~ %r{.icon-d}
   end
 
+  it "should skip file name hashes if option is set" do
+    fontname = 'myfont'
+
+    Compass.configuration.no_fontcustom_hash = true
+
+    css = render <<-SCSS
+      @import "#{fontname}/*.svg";
+    SCSS
+
+    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
+    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
+    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.eot')
+    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.svg')
+    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.ttf')
+    assert File.exists? File.join(Compass.configuration.css_path, 'myfont.woff')
+
+
+    assert css =~ %r{.icon-c}
+    assert css =~ %r{.icon-d}
+  end
+
 end
