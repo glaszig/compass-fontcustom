@@ -38,8 +38,6 @@ class FontImporterTest < Test::Unit::TestCase
   def test_should_generate_font_classes
     fontname = 'myfont'
 
-    # binding.pry
-
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
       @include all-myfont-letters;
