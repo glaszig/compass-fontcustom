@@ -1,6 +1,8 @@
 require 'erb'
 require 'tempfile'
-require 'fontcustom/generator'
+require 'fontcustom/options'
+require 'fontcustom/util'
+require 'fontcustom/generator/font'
 
 module Compass
   module Fontcustom
@@ -55,15 +57,14 @@ module Compass
         end
 
         def generate_font_files(name)
-          args = []
-          args << File.join(Compass.configuration.images_path.to_s, name)
-          args << '-o'
-          args << Compass.configuration.fonts_path.to_s
-          args << "-n"
-          args << name
-          args << '--nohash' unless Compass.configuration.fontcustom_hash
-          args << '--no-verbose'
-          ::Fontcustom::Generator.start(args)
+          args = {
+            :input     => File.join(Compass.configuration.images_path.to_s, name),
+            :output    => Compass.configuration.fonts_path.to_s,
+            :font_name => name,
+            :file_hash => Compass.configuration.fontcustom_hash,
+            :verbose   => false
+          }
+          ::Fontcustom::Generator::Font.start [args]
         end
 
         # Start the Fontcustom generator
