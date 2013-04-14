@@ -1,5 +1,6 @@
 require 'erb'
 require 'tempfile'
+require 'fontcustom/error'
 require 'fontcustom/options'
 require 'fontcustom/util'
 require 'fontcustom/generator/font'
