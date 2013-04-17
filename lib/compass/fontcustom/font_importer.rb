@@ -4,14 +4,10 @@ require 'fontcustom/error'
 require 'fontcustom/options'
 require 'fontcustom/util'
 require 'fontcustom/generator/font'
-require 'compass/fontcustom/configuration'
+require 'compass/fontcustom/configurable'
 
 module Compass
   module Fontcustom
-
-    def self.configure(&block)
-      yield Configuration
-    end
 
     # Just an `OpenStruct` to contain template variables.
     # @see FontImporter#content_for_font
@@ -23,6 +19,7 @@ module Compass
     # The Sass Importer responsible to find svg and eps files
     # and to start the Fontcustom font generator.
     class FontImporter < ::Sass::Importers::Base
+      include Configurable
 
       # Regexp matching uri's of svg and eps files
       FONT_FILE_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.(svg|eps)}
@@ -83,7 +80,7 @@ module Compass
 
         # Starts the Fontcustom font generator to write font files to disk.
         def generate_font_files(name)
-          args = Configuration.generator_options || {}
+          args = config.generator_options || {}
           args.merge!(
             :input     => File.join(Compass.configuration.images_path.to_s, name),
             :output    => Compass.configuration.fonts_path.to_s,
