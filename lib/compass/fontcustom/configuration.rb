@@ -2,13 +2,14 @@ module Compass
   module Fontcustom
     class Configuration
 
+      @config ||= {}
+
       def self.method_missing(meth, *args)
-        @@config ||= {}
         if meth.to_s =~ /=$/
           sym = meth.to_s[0...-1].to_sym
-          @@config[sym] = args.first
+          @config[sym] = args.first
         else
-          @@config[meth]
+          @config[meth]
         end
       end
 
