@@ -4,9 +4,14 @@ require 'fontcustom/error'
 require 'fontcustom/options'
 require 'fontcustom/util'
 require 'fontcustom/generator/font'
+require 'compass/fontcustom/configuration'
 
 module Compass
   module Fontcustom
+
+    def self.configure(&block)
+      yield Configuration
+    end
 
     # Just an `OpenStruct` to contain template variables.
     # @see FontImporter#content_for_font
@@ -78,13 +83,14 @@ module Compass
 
         # Starts the Fontcustom font generator to write font files to disk.
         def generate_font_files(name)
-          args = {
+          args = Configuration.generator_options || {}
+          args.merge!(
             :input     => File.join(Compass.configuration.images_path.to_s, name),
             :output    => Compass.configuration.fonts_path.to_s,
             :font_name => name,
             :file_hash => Compass.configuration.fontcustom_hash,
             :verbose   => false
-          }
+          )
           ::Fontcustom::Generator::Font.start [args]
         end
 

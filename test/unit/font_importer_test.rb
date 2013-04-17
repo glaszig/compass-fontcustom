@@ -17,6 +17,10 @@ class FontImporterTest < Test::Unit::TestCase
       css_dir      = #{".output".inspect}
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
+
+    Compass::Fontcustom.configure do |config|
+      config.generator_options = { :debug => true }
+    end
   end
 
   def teardown
