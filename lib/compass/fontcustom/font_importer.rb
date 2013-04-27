@@ -4,7 +4,6 @@ require 'fontcustom/error'
 require 'fontcustom/options'
 require 'fontcustom/util'
 require 'fontcustom/generator/font'
-require 'compass/fontcustom/configurable'
 
 module Compass
   module Fontcustom
@@ -19,7 +18,6 @@ module Compass
     # The Sass Importer responsible to find svg and eps files
     # and to start the Fontcustom font generator.
     class FontImporter < ::Sass::Importers::Base
-      include Configurable
 
       # Regexp matching uri's of svg and eps files
       FONT_FILE_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.(svg|eps)}
@@ -51,11 +49,11 @@ module Compass
           path
         end
 
-        # Returns all letter names inside the folder at `uri`.
+        # Returns all glyph names inside the folder at `uri`.
         # @return [Array]
-        def letter_names(uri)
+        def glyph_names(uri)
           folder = Compass.configuration.images_path.to_s
-          files = Dir[File.join(folder, uri)].sort
+          files  = Dir[File.join(folder, uri)].sort
 
           if files.empty?
             raise Compass::SpriteException, %Q{No files were found in the fonts path matching "#{uri}". Your current font path is: #{folder}}
@@ -73,29 +71,15 @@ module Compass
         # Returns a `Sass::Engine`
         # @return [Sass::Engine]
         def sass_engine(uri, name, importer, options)
-          generate_font_files(name)
           content = content_for_font(uri, name)
           Sass::Engine.new(content, sass_options(uri, importer, options))
-        end
-
-        # Starts the Fontcustom font generator to write font files to disk.
-        def generate_font_files(name)
-          args = config.generator_options || {}
-          args.merge!(
-            :input     => File.join(Compass.configuration.images_path.to_s, name),
-            :output    => Compass.configuration.fonts_path.to_s,
-            :font_name => name,
-            :file_hash => Compass.configuration.fontcustom_hash,
-            :verbose   => false
-          )
-          ::Fontcustom::Generator::Font.start [args]
         end
 
         # Renders the stylesheet for font `name` at `uri`
         # @return [String]
         def content_for_font(uri, name)
           erb    = File.join(template_path, 'stylesheet.scss.erb')
-          binder = TemplateData.new(:name => name, :path => fonts_path, :letter_names => letter_names(uri))
+          binder = TemplateData.new(uri: uri, name: name, path: fonts_path, glyph_names: glyph_names(uri))
           file   = Tempfile.open('fontcustom.css')
           begin
             file.write ERB.new(File.read(erb)).result(binder.expose_binding)
@@ -115,6 +99,15 @@ module Compass
         # @return [String]
         def template_path
           File.expand_path('../templates', __FILE__)
+        end
+
+        # Returns an array of font files.
+        # @param uri [String] a URI
+        # @return [Array]
+        def files(uri)
+          folder = Compass.configuration.images_path.to_s
+          files = Dir[File.join(folder, uri)]
+          files
         end
 
       end # end class methods
@@ -151,15 +144,6 @@ module Compass
       # @return [Boolean]
       def eql?(other)
         other.class == self.class
-      end
-
-      # Returns an array of font files.
-      # @param uri [String] a URI
-      # @return [Array]
-      def files(uri)
-        folder = Compass.configuration.fonts_path.to_s
-        files = Dir[File.join(folder, uri)]
-        files
       end
 
       def mtime(uri, options)

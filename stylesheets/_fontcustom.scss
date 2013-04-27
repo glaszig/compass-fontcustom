@@ -1,30 +1,28 @@
-@mixin fontcustom-font-face($name) {
+@mixin fontcustom-font-face($map) {
   @font-face {
-    font-family: "#{$name}";
-    src: font-url("#{$name}.eot?#iefix") format("embedded-opentype"),
-         font-url("#{$name}.woff") format("woff"),
-         font-url("#{$name}.ttf") format("truetype"),
-         font-url("#{$name}.svg##{$name}") format("svg");
+    font-family: glyph-font-name($map);
+    src: glyph-font-sources($map);
     font-weight: normal;
     font-style: normal;
   }
 }
 
-// generates icon classes in the format icon-<font-name>-<letter-name>
-// for each letter in the font.
+// generates icon classes in the format icon-<font-name>-<glyph-name>
+// for each glyph in the font.
 //
-// $name          must be the name of the font
-// $letter-names  must be a space-separated list of letter names
+// $map          must be a glyph map
+// $glyph-names  must be a space-separated list of glyph names
 // $base-class    should be the css class to @extend
-@mixin letters($name, $letter-names, $base-class: false) {
-  @each $letter-name in $letter-names {
+@mixin glyphs($map, $glyph-names, $base-class: false) {
+  $name: glyph-font-name($map);
+  @each $glyph-name in $glyph-names {
 
-    $index: index($letter-names, $letter-name);
-    $class_name: "icon-#{$name}-#{$letter-name}";
+    $index: index($glyph-names, $glyph-name);
+    $class_name: "icon-#{$name}-#{$glyph-name}";
 
     .#{$class_name} {
       @if $base-class { @extend #{$base-class}; }
-      &:before { content: letter($index); }
+      &:before { content: glyph($index); }
     }
 
   }
