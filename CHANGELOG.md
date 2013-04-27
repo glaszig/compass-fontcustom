@@ -8,7 +8,8 @@
  - After `@import`ing your font you now need to `@include all-font-name-letters` to have classes available
  - Font letter class names follow this naming scheme: `.icon-<font>-<letter>`
  - New Sass function: `letters(index)` which yields `:before` styles with proper index pointing at a specific glyph  
-   Example: `&:before { content: "\<index>"; }`
+   Example:  
+   `&:before { content: "\<index>"; }`
 
 **0.0.1**
 
