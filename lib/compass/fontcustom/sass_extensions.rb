@@ -45,6 +45,11 @@ module Compass
         end
         Sass::Script::Functions.declare :glyph_font_name, [:map]
 
+        def glyph_font_name_quoted(map)
+          Sass::Script::String.new %Q{"#{map.name}"}
+        end
+        Sass::Script::Functions.declare :glyph_font_name_quoted, [:map]
+
         def glyph_font_type_url map, type
           type = type % {font_name: map.name}
           file_name = "#{map.filename}.#{type}"

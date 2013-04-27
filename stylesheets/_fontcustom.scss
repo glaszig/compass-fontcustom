@@ -1,6 +1,6 @@
 @mixin fontcustom-font-face($map) {
   @font-face {
-    font-family: glyph-font-name($map);
+    font-family: glyph-font-name-quoted($map);
     src: glyph-font-sources($map);
     font-weight: normal;
     font-style: normal;
