@@ -6,7 +6,11 @@ This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Com
 
 Add this line to your application's Gemfile:
 
-    gem 'compass-fontcustom', :git => 'git://github.com/glaszig/compass-fontcustom.git'
+    gem 'compass-fontcustom'
+
+or:
+
+    gem 'compass-fontcustom', :github => 'glaszig/compass-fontcustom'
 
 And then execute:
 
@@ -31,9 +35,11 @@ The font files will be searched in `images_path/myfont` and be written to Compas
 You can choose to disable file name hashes if you're already using an asset pipeline that handles this for you:
 Use the `fontcustom_hash` compass option in `config.rb`
 
-    compass_config do |config|
-      config.fontcustom_hash = false
-    end
+```ruby
+compass_config do |config|
+  config.fontcustom_hash = false
+end
+```
 
 ## Contributing
 
