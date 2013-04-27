@@ -78,15 +78,9 @@ module Compass
         # Renders the stylesheet for font `name` at `uri`
         # @return [String]
         def content_for_font(uri, name)
-          erb    = File.join(template_path, 'stylesheet.scss.erb')
+          erb    = File.read File.join(template_path, 'stylesheet.scss.erb')
           binder = TemplateData.new(uri: uri, name: name, path: fonts_path, glyph_names: glyph_names(uri))
-          file   = Tempfile.open('fontcustom.css')
-          begin
-            file.write ERB.new(File.read(erb)).result(binder.expose_binding)
-          ensure
-            file.close
-          end
-          File.read file.path
+          ERB.new(erb).result(binder.expose_binding)
         end
 
         # Returns the fonts path
