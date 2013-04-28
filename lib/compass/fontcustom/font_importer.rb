@@ -141,7 +141,7 @@ module Compass
       end
 
       def mtime(uri, options)
-        files(uri).sort.inject(Time.at(0)) do |max_time, file|
+        self.class.files(uri).sort.inject(Time.at(0)) do |max_time, file|
           (t = File.mtime(file)) > max_time ? t : max_time
         end
       end
