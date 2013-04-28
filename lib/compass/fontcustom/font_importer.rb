@@ -19,7 +19,8 @@ module Compass
     # and to start the Fontcustom font generator.
     class FontImporter < ::Sass::Importers::Base
 
-      # Regexp matching uri's of svg and eps files
+      # Regexp matching uri's of svg and eps files.
+      # Matching group `$1` contains the path, `$3` the file name.
       GLYPH_FILE_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.(svg|eps)}
 
       # class methods
@@ -27,6 +28,8 @@ module Compass
 
         # Returns an array with two elements.
         # First the path, second the file name of the `uri`.
+        # @param uri [String] an uri to match glyph image
+        # @return [Array] a two-element array containing the path and file name components
         def path_and_name(uri)
           if uri =~ GLYPH_FILE_REGEX
             [$1, $3]
@@ -37,6 +40,7 @@ module Compass
 
         # Returns only the file name component of `uri`.
         # @see path_and_name
+        # @return [String]
         def font_name(uri)
           _, name = path_and_name(uri)
           name
@@ -44,12 +48,14 @@ module Compass
 
         # Returns only the path component of `uri`
         # @see path_and_name
+        # @return [String]
         def path(uri)
           path, _ = path_and_name(uri)
           path
         end
 
         # Returns all glyph names inside the folder at `uri`.
+        # @param uri [String] the uri to glob files from
         # @return [Array]
         def glyph_names(uri)
           folder = Compass.configuration.images_path.to_s
@@ -63,12 +69,19 @@ module Compass
         end
 
         # Returns `Sass::Engine` options with defaults
+        # @param uri [String] the uri to glob files from
+        # @param importer [Sass::Importers::Base] the importer to use (in this case `self`)
+        # @param options [Hash] options to merge with
         # @return [Hash]
         def sass_options(uri, importer, options)
           options.merge!(:filename => uri.gsub(%r{\*/},"*\\/"), :syntax => :scss, :importer => importer)
         end
 
         # Returns a `Sass::Engine`
+        # @param uri [String] the uri to glob files from
+        # @param name [String] the font's name
+        # @param importer [Sass::Importers::Base] the importer to use (in this case `self`)
+        # @param options [Hash] options to merge with
         # @return [Sass::Engine]
         def sass_engine(uri, name, importer, options)
           content = content_for_font(uri, name)
@@ -76,6 +89,8 @@ module Compass
         end
 
         # Renders the stylesheet for font `name` at `uri`
+        # @param uri [String] the uri to glob files from
+        # @param name [String] the font's name
         # @return [String]
         def content_for_font(uri, name)
           erb    = File.read File.join(template_path, 'stylesheet.scss.erb')
@@ -96,7 +111,7 @@ module Compass
         end
 
         # Returns an array of font files.
-        # @param uri [String] a URI
+        # @param uri [String] the uri to glob files from
         # @return [Array]
         def files(uri)
           folder = Compass.configuration.images_path.to_s
@@ -117,6 +132,7 @@ module Compass
         nil
       end
 
+      # Unused. Just returns nil.
       def find_relative(uri, base, options)
         nil
       end
@@ -147,6 +163,8 @@ module Compass
       end
 
       # This instance's Compass cache key
+      # @param uri [String] the uri to glob files from
+      # @param options [Hash] hash of options
       # @return [Array]
       def key(uri, options={})
         [self.class.name + ":fontcustom:" + File.dirname(File.expand_path(uri)), File.basename(uri)]

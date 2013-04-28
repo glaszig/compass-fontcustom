@@ -1,5 +1,7 @@
 module Compass
   module Fontcustom
+
+    # A simple configuration store like the one known from ActiveSupport.
     module Configurable
 
       def self.included(base)
