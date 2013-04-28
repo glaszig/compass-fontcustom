@@ -20,7 +20,7 @@ module Compass
     class FontImporter < ::Sass::Importers::Base
 
       # Regexp matching uri's of svg and eps files
-      FONT_FILE_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.(svg|eps)}
+      GLYPH_FILE_REGEX = %r{((.+/)?([^\*.]+))/(.+?)\.(svg|eps)}
 
       # class methods
       class << self
@@ -28,7 +28,7 @@ module Compass
         # Returns an array with two elements.
         # First the path, second the file name of the `uri`.
         def path_and_name(uri)
-          if uri =~ FONT_FILE_REGEX
+          if uri =~ GLYPH_FILE_REGEX
             [$1, $3]
           else
             raise Compass::Error, "invalid fonts path"
@@ -111,7 +111,7 @@ module Compass
       # @param options [Hash] options for the returned Sass::Engine`
       # @return [Sass::Engine]
       def find(uri, options)
-        if uri =~ FONT_FILE_REGEX
+        if uri =~ GLYPH_FILE_REGEX
           return self.class.sass_engine(uri, self.class.font_name(uri), self, options)
         end
         nil
