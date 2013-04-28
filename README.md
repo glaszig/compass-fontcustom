@@ -23,7 +23,7 @@ You can let Font Custom generate your fonts upon Compass' css compilation:
 
 ```css
 @import "myfont/*.svg";
-@include all-myfont-letters;
+@include all-myfont-glyphs;
 ```
 
 This will import `fontcustom.css` into your stylesheet so that you can use the font `myfont` and the generated classes.
