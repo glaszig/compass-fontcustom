@@ -31,7 +31,7 @@ module Compass
           if uri =~ GLYPH_FILE_REGEX
             [$1, $3]
           else
-            raise Compass::Error, "invalid fonts path"
+            raise Compass::Error, "Invalid glyph image uri"
           end
         end
 
@@ -56,7 +56,7 @@ module Compass
           files  = Dir[File.join(folder, uri)].sort
 
           if files.empty?
-            raise Compass::SpriteException, %Q{No files were found in the fonts path matching "#{uri}". Your current font path is: #{folder}}
+            raise Compass::SpriteException, %Q{No glyph images were found matching "#{uri}" in the images path. Your current images path is: #{folder}}
           end
 
           files.map { |f| File.basename(f)[0..-5] }
