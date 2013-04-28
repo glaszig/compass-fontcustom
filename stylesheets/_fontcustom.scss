@@ -1,0 +1,29 @@
+@mixin fontcustom-font-face($map) {
+  @font-face {
+    font-family: glyph-font-name-quoted($map);
+    src: glyph-font-sources($map);
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// generates icon classes in the format icon-<font-name>-<glyph-name>
+// for each glyph in the font.
+//
+// $map          must be a glyph map
+// $glyph-names  must be a space-separated list of glyph names
+// $base-class    should be the css class to @extend
+@mixin glyphs($map, $glyph-names, $base-class: false) {
+  $name: glyph-font-name($map);
+  @each $glyph-name in $glyph-names {
+
+    $index: index($glyph-names, $glyph-name);
+    $class_name: "icon-#{$name}-#{$glyph-name}";
+
+    .#{$class_name} {
+      @if $base-class { @extend #{$base-class}; }
+      &:before { content: glyph($index); }
+    }
+
+  }
+}

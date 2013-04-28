@@ -1,0 +1,14 @@
+@import "fontcustom.scss";
+
+$<%= name %>-font-base-class: ".<%= name %>-font" !default;
+
+#{$<%= name %>-font-base-class} {
+	font-family: "<%= name %>";
+}
+
+$<%= name %>-glyphs: glyph-map("<%= uri %>");
+
+@mixin all-<%= name %>-glyphs {
+  @include fontcustom-font-face($<%= name %>-glyphs);
+  @include glyphs($<%= name %>-glyphs, <%= glyph_names.join " " %>, $<%= name %>-font-base-class)
+}

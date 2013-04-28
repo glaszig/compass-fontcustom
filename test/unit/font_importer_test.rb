@@ -6,20 +6,26 @@ class FontImporterTest < Test::Unit::TestCase
 
   def setup
     Compass.reset_configuration!
-    @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures')
-    @images_tmp_path = File.join(File.expand_path('../../', __FILE__), 'tmp')
-    Dir.mkdir @images_tmp_path
+    @project_path = File.expand_path('../../', __FILE__)
+    @output_path  = File.join(@project_path, '.output')
+    @fonts_path   = File.join(@output_path, 'fonts')
+    FileUtils.mkdir_p @fonts_path
 
     config = StringIO.new <<-SCSS
-      images_path = #{@images_src_path.inspect}
-      css_path = #{@images_tmp_path.inspect}
+      project_path = #{@project_path.inspect}
+      images_dir   = #{"fixtures".inspect}
+      css_dir      = #{".output".inspect}
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
+
+    Compass::Fontcustom::GlyphMap.configure do |config|
+      config.generator_options = { :debug => true }
+    end
   end
 
   def teardown
     Compass.reset_configuration!
-    ::FileUtils.rm_r @images_tmp_path
+    FileUtils.rm_r @output_path
   end
 
   def render(scss)
@@ -33,38 +39,36 @@ class FontImporterTest < Test::Unit::TestCase
     Sass::Engine.new(scss, options).render
   end
 
-  it "should generate font classes" do
+  def test_should_generate_font_classes
     fontname = 'myfont'
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
+      @include all-myfont-glyphs;
     SCSS
 
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom.css')
-    assert File.exists? File.join(Compass.configuration.css_path, 'fontcustom-ie7.css')
-
-    assert css =~ %r{.icon-c}
-    assert css =~ %r{.icon-d}
+    assert css =~ %r{.#{fontname}-font}, "base font class missing"
+    assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
+    assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
   end
 
-  it "should skip file name hashes if option is set" do
+  def test_should_skip_file_name_hashes_if_option_is_set
     fontname = 'myfont'
 
     Compass.configuration.fontcustom_hash = false
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
+      @include all-myfont-glyphs;
     SCSS
 
-    puts `ls -l #{Compass.configuration.css_path}`
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.svg')
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.ttf')
+    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.woff')
 
-    %w(fontcustom.css fontcustom-ie7.css myfont.svg myfont.ttf).each do |f|
-      filename = File.join(Compass.configuration.css_path, f)
-      assert File.exists?(filename), "File '#{f}' missing"
-    end
-
-    assert css =~ %r{.icon-c}
-    assert css =~ %r{.icon-d}
+    assert css =~ %r{.#{fontname}-font}, "base font class missing"
+    assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
+    assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
   end
 
 end

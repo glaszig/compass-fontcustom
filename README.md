@@ -1,4 +1,4 @@
-# Compass::Fontcustom [![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=master)](https://travis-ci.org/glaszig/compass-fontcustom)
+# Compass::Fontcustom [![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=experimental)](https://travis-ci.org/glaszig/compass-fontcustom)
 
 This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Compass](http://compass-style.org).
 
@@ -6,7 +6,11 @@ This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Com
 
 Add this line to your application's Gemfile:
 
-    gem 'compass-fontcustom', :git => 'git://github.com/glaszig/compass-fontcustom.git'
+    gem 'compass-fontcustom'
+
+or:
+
+    gem 'compass-fontcustom', :github => 'glaszig/compass-fontcustom'
 
 And then execute:
 
@@ -18,21 +22,24 @@ Syntactically it works like Compass' sprites feature.
 You can let Font Custom generate your fonts upon Compass' css compilation:
 
 ```css
-@import "myfont/*.svg"
+@import "myfont/*.svg";
+@include all-myfont-glyphs;
 ```
 
 This will import `fontcustom.css` into your stylesheet so that you can use the font `myfont` and the generated classes.
 
-The font files will be searched in your project's `images_path` and be written to the `css_path`.
+The font files will be searched in `images_path/myfont` and be written to Compass' `fonts_path`.
 
 ## Disabling file name hashes
 
 You can choose to disable file name hashes if you're already using an asset pipeline that handles this for you:
 Use the `fontcustom_hash` compass option in `config.rb`
 
-    compass_config do |config|
-      config.fontcustom_hash = false
-    end
+```ruby
+compass_config do |config|
+  config.fontcustom_hash = false
+end
+```
 
 ## Contributing
 
