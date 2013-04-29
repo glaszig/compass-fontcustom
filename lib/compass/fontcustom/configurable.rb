@@ -5,14 +5,16 @@ module Compass
     module Configurable
 
       def self.included(base)
-        base.class_eval do
-          def self.configure(&block)
-            yield config
-          end
+        base.extend ClassMethods
+      end
 
-          def self.config
-            @_config ||= Configuration.new
-          end
+      module ClassMethods
+        def configure(&block)
+          yield config
+        end
+
+        def config
+          @_config ||= Configuration.new
         end
       end
 
