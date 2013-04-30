@@ -1,5 +1,9 @@
 # Changelog
 
+**1.0.0.pre2** Maintenance release
+
+ - Depending on fontcustom 1.0.0.pre2
+
 **1.0.0.pre**
 
  - Designed to work with fontcustom 1.0.0.pre
