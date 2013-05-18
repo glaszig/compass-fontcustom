@@ -1,3 +1,6 @@
 require 'test/unit'
-require 'compass/fontcustom'
 require 'pry'
+require 'coveralls'
+Coveralls.wear!
+
+require 'compass/fontcustom'
