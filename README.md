@@ -52,3 +52,5 @@ end
 ## License
 
 [MIT](https://raw.github.com/glaszig/compass-fontcustom/master/LICENSE)
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/233dd6a31787ce3672d5e92e97a76965 "githalytics.com")](http://githalytics.com/glaszig/compass-fontcustom)
