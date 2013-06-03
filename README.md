@@ -1,6 +1,15 @@
-# Compass::Fontcustom [![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=experimental)](https://travis-ci.org/glaszig/compass-fontcustom) [![Gem Version](https://badge.fury.io/rb/compass-fontcustom.png)](http://badge.fury.io/rb/compass-fontcustom) [![Test Coverage](https://coveralls.io/repos/glaszig/compass-fontcustom/badge.png?branch=master)](https://coveralls.io/r/glaszig/compass-fontcustom)
+# Compass::Fontcustom
+
+[![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=master)](https://travis-ci.org/glaszig/compass-fontcustom)
+[![Gem Version](https://badge.fury.io/rb/compass-fontcustom.png)](http://badge.fury.io/rb/compass-fontcustom)
+[![Test Coverage](https://coveralls.io/repos/glaszig/compass-fontcustom/badge.png?branch=master)](https://coveralls.io/r/glaszig/compass-fontcustom)
+[![endorse](https://api.coderwall.com/glaszig/endorsecount.png)](https://coderwall.com/glaszig)
 
 This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Compass](http://compass-style.org).
+
+## Requirements
+
+Made for ruby 1.9+. Tested on 1.9.3 and 2.0.0.
 
 ## Installation
 
