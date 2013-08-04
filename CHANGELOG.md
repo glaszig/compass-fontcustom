@@ -1,5 +1,13 @@
 # Changelog
 
+**1.0.0** Feature release
+
+ - Adding mixin for generating custom glyph classes
+
+**1.0.0.pre3** Bugfix release
+
+ - Fixing CSS class <-> glyph mapping
+
 **1.0.0.pre2** Maintenance release
 
  - Depending on fontcustom 1.0.0.pre2
