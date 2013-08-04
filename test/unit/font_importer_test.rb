@@ -19,7 +19,7 @@ class FontImporterTest < Test::Unit::TestCase
     Compass.add_configuration(config, "fontcustom_config")
 
     Compass::Fontcustom::GlyphMap.configure do |config|
-      config.generator_options = { :debug => true }
+      config.generator_options = { :debug => false }
     end
   end
 
@@ -69,6 +69,38 @@ class FontImporterTest < Test::Unit::TestCase
     assert css =~ %r{.#{fontname}-font}, "base font class missing"
     assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
     assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
+  end
+
+  def test_glyph_mixin
+    fontname = 'myfont'
+
+    css = render <<-SCSS
+      @import "#{fontname}/*.svg";
+      @include fontcustom-font-face($myfont-glyphs);
+
+      .custom-class-name {
+        @include myfont-glyph(C);
+      }
+    SCSS
+
+    expected = <<-CSS
+.myfont-font, .custom-class-name {
+  font-family: "myfont";
+}
+
+@font-face {
+  font-family: "myfont";
+  src: url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.eot?#iefix') format('embedded-opentype'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.woff') format('woff'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.ttf') format('truetype'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.svg#myfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.custom-class-name:before {
+  content: "\\f101";
+}
+    CSS
+
+    assert_equal expected, css
   end
 
 end
