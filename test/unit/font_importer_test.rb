@@ -85,24 +85,9 @@ class FontImporterTest < Test::Unit::TestCase
       }
     SCSS
 
-    expected = <<-CSS
-.myfont-font, .custom-class-name {
-  font-family: "myfont";
-}
-
-@font-face {
-  font-family: "myfont";
-  src: url('/.output/fonts/myfont.eot?#iefix') format('embedded-opentype'), url('/.output/fonts/myfont.woff') format('woff'), url('/.output/fonts/myfont.ttf') format('truetype'), url('/.output/fonts/myfont.svg#myfont') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.custom-class-name:before {
-  content: "\\f101";
-}
-    CSS
-
-    assert_equal expected, css
+    assert css =~ %r{.#{fontname}-font, .custom-class-name}, "extending base class missing"
+    assert css =~ %r{@font-face}, "font-face definition missing"
+    assert css =~ %r{.custom-class-name:before}, "cusom class missing missing"
   end
 
 end
