@@ -74,6 +74,8 @@ class FontImporterTest < Test::Unit::TestCase
   def test_glyph_mixin
     fontname = 'myfont'
 
+    Compass.configuration.fontcustom_hash = false
+
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
       @include fontcustom-font-face($myfont-glyphs);
@@ -90,7 +92,7 @@ class FontImporterTest < Test::Unit::TestCase
 
 @font-face {
   font-family: "myfont";
-  src: url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.eot?#iefix') format('embedded-opentype'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.woff') format('woff'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.ttf') format('truetype'), url('/.output/fonts/myfont_38179433316315f2095e94386a29e9fb.svg#myfont') format('svg');
+  src: url('/.output/fonts/myfont.eot?#iefix') format('embedded-opentype'), url('/.output/fonts/myfont.woff') format('woff'), url('/.output/fonts/myfont.ttf') format('truetype'), url('/.output/fonts/myfont.svg#myfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
