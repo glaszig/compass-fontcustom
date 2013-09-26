@@ -1,5 +1,13 @@
 # Changelog
 
+**1.1.0** Minor release
+
+ - Bundles Fontcustom 1.1.0
+ - Adds proper support for Rails' asset pipeline. Should work with Rails >= 3.1, tested with 4.0.
+ - Changes/fixes behavior of naming CSS classes: Special characters, other than a-z and 0-9, are now being stripped when generating class names from glyph file names to prevent CSS from throwing up:  
+
+   File name `google+.svg` becomes class name `.icon-yourfont-google` -- without the `+` sign.
+
 **1.0.0** Feature release
 
  - Adding mixin for generating custom glyph classes
