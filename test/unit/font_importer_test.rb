@@ -50,6 +50,7 @@ class FontImporterTest < Test::Unit::TestCase
     assert css =~ %r{.#{fontname}-font}, "base font class missing"
     assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
     assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
+    assert css =~ %r{.icon-#{fontname}-google}i, "icon google+ css class missing"
   end
 
   def test_should_skip_file_name_hashes_if_option_is_set

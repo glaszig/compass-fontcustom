@@ -11,10 +11,19 @@ module Compass
       # @param context [Object] usually an instance of FontImporter
       def self.from_uri(uri, context)
         path, name = FontImporter.path_and_name uri
-        glyphs = FontImporter.files(uri).sort.map { |file| File.basename(file)[0..-5] }
+        glyphs = FontImporter.files(uri).sort
+
+        # TODO: improve extraction of aboslute path
+        path = File.dirname glyphs.first
+        glyphs.map! { |file| File.basename(file)[0..-5].gsub(/[^0-9A-Za-z]/, '') }
+
         new glyphs, path, name, context
       end
 
+      # @param glyphs [Array] all the glyphs found at path
+      # @param path [String] the absolute path where glyphs are stored
+      # @param name [String] the name of the glyph font
+      # @param context [Object] the invoking object
       def initialize(glyphs, path, name, context)
         raise StandardError, "No glyphs found at '#{path}'" if glyphs.empty?
         @glyphs = glyphs
@@ -32,7 +41,7 @@ module Compass
         unless exists?
           args = self.class.config.generator_options || {}
           args.merge!(
-            :input     => File.join(Compass.configuration.images_path.to_s, self.path),
+            :input     => path,
             :output    => output_dir,
             :font_name => @name,
             :file_hash => Compass.configuration.fontcustom_hash,

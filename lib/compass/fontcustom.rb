@@ -18,3 +18,5 @@ module Compass
     Sass.load_paths << FontImporter.new
   end
 end
+
+require "compass/fontcustom/rails" if defined?(Rails)

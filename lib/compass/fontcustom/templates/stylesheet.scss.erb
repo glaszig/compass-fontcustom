@@ -10,11 +10,11 @@ $<%= name %>-glyphs: glyph-map("<%= uri %>");
 
 @mixin all-<%= name %>-glyphs {
   @include fontcustom-font-face($<%= name %>-glyphs);
-  @include glyphs($<%= name %>-glyphs, <%= glyph_names.join " " %>, $<%= name %>-font-base-class)
+  @include glyphs($<%= name %>-glyphs, <%= glyph_names.map{ |g| "'#{g}'" }.join " " %>, $<%= name %>-font-base-class)
 }
 
 @mixin <%= name %>-glyph($glyph-name) {
   @extend #{$<%= name %>-font-base-class};
-  $index: index(<%= glyph_names.join " " %>, $glyph-name);
+  $index: index(<%= glyph_names.map{ |g| "'#{g}'" }.join " " %>, $glyph-name);
   &:before { content: glyph($index); }
 }

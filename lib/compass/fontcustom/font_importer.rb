@@ -54,18 +54,22 @@ module Compass
           path
         end
 
+        def search_paths
+          [Compass.configuration.images_path.to_s]
+        end
+
         # Returns all glyph names inside the folder at `uri`.
         # @param uri [String] the uri to glob files from
         # @return [Array]
         def glyph_names(uri)
-          folder = Compass.configuration.images_path.to_s
-          files  = Dir[File.join(folder, uri)]
+          files = []
+          search_paths.each { |p| files.concat Dir[File.join(p, uri)] }
 
           if files.empty?
             raise Compass::SpriteException, %Q{No glyph images were found matching "#{uri}" in the images path. Your current images path is: #{folder}}
           end
 
-          files.map { |f| File.basename(f)[0..-5].gsub(' ', '-') }
+          files.map { |f| File.basename(f)[0..-5].gsub(/[^0-9A-Za-z]/, '') }
         end
 
         # Returns `Sass::Engine` options with defaults
@@ -114,9 +118,9 @@ module Compass
         # @param uri [String] the uri to glob files from
         # @return [Array]
         def files(uri)
-          folder = Compass.configuration.images_path.to_s
-          files = Dir[File.join(folder, uri)]
-          files
+          [].tap do |files|
+            search_paths.each { |p| files.concat Dir[File.join p, uri] }
+          end
         end
 
       end # end class methods
