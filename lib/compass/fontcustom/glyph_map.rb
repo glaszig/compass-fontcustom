@@ -1,4 +1,4 @@
-require 'fontcustom/generator/font'
+require 'fontcustom'
 require 'compass/fontcustom/configurable'
 
 module Compass
@@ -44,10 +44,10 @@ module Compass
             :input     => path,
             :output    => output_dir,
             :font_name => @name,
-            :file_hash => Compass.configuration.fontcustom_hash,
-            :verbose   => false
+            :no_hash   => !Compass.configuration.fontcustom_hash,
+            :quiet     => true
           )
-          ::Fontcustom::Generator::Font.start [args]
+          ::Fontcustom::Generator::Font.start [::Fontcustom::Options.new(args)]
         end
       end
 
