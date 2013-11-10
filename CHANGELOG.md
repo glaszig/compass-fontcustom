@@ -1,5 +1,11 @@
 # Changelog
 
+**1.2.0** Major release
+
+ - Bundles Fontcustom 1.2.0
+ - **Compatibility**: CSS class name and glyph name normalization have been decoupled. See the readme for details.
+ - Extended documentation in the readme.
+
 **1.1.0** Minor release
 
  - Bundles Fontcustom 1.1.0
