@@ -9,7 +9,8 @@ This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Com
 
 ## Requirements
 
-Made for ruby 1.9+. Tested on 1.9.3 and 2.0.0.
+Made for ruby 1.9+. Tested on 1.9.3 and 2.0.0.  
+You'll need to have fontforge and the [WOFF font toolset](http://people.mozilla.com/~jkew/woff) installed as outlined in the Font Custom [installation instructions](http://fontcustom.com/#installation).
 
 ## Installation
 
@@ -35,14 +36,35 @@ You can let Font Custom generate your fonts upon Compass' css compilation:
 @include all-myfont-glyphs;
 ```
 
-This will import `fontcustom.css` into your stylesheet so that you can use the font `myfont` and the generated classes.
+This will setup a proper `@font-face` and generate icon classes named `.icon-<font_name>-<glyph_name>` for each glyph.
 
-The font files will be searched in `images_path/myfont` and be written to Compass' `fonts_path`.
+### Custom class names
 
-## Disabling file name hashes
+You can also use custom class names using the `<font_name>-glyph()` mixin:
 
-You can choose to disable file name hashes if you're already using an asset pipeline that handles this for you:
-Use the `fontcustom_hash` compass option in `config.rb`
+```css
+.custom-class-name {
+  @include myfont-glyph(glyph-file-name);
+}
+```
+
+which will result into CSS along the lines of:
+
+```css
+.myfont-font, .custom-class-name {
+  font-family: "myfont";
+}
+.custom-class-name:before {
+  content: "\f100";
+}
+```
+
+## Configuration options
+
+### Filename hashing
+
+You can choose to disable file name hashes if you're already using an asset pipeline which handles this for you:
+Use the `fontcustom_hash` option in `config.rb`
 
 ```ruby
 compass_config do |config|

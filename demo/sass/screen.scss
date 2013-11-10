@@ -7,3 +7,7 @@
 
 @import "demo-font/*.svg";
 @include all-demo-font-glyphs;
+
+.custom-class-name {
+  @include demo-font-glyph(C);
+}
