@@ -70,6 +70,8 @@ class FontImporterTest < Test::Unit::TestCase
     assert css =~ %r{.#{fontname}-font}, "base font class missing"
     assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
     assert css =~ %r{.icon-#{fontname}-d}i, "icon d css class missing"
+    assert css =~ %r{.icon-#{fontname}-a_R3ally-eXotic-f1Le-Name}i, "exotic name css class missing"
+    assert css =~ %r{.icon-#{fontname}-google}i, "google icon css class missing"
   end
 
   def test_glyph_mixin
@@ -82,13 +84,13 @@ class FontImporterTest < Test::Unit::TestCase
       @include fontcustom-font-face($myfont-glyphs);
 
       .custom-class-name {
-        @include myfont-glyph(C);
+        @include myfont-glyph('a_R3ally-eXotic f1Le Name');
       }
     SCSS
 
     assert css =~ %r{.#{fontname}-font, .custom-class-name}, "extending base class missing"
     assert css =~ %r{@font-face}, "font-face definition missing"
-    assert css =~ %r{.custom-class-name:before}, "cusom class missing missing"
+    assert css =~ %r{.custom-class-name:before}, "custom class missing missing"
   end
 
 end

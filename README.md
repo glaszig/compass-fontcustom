@@ -59,6 +59,10 @@ which will result into CSS along the lines of:
 }
 ```
 
+> **Attention**  
+> Generated CSS class names will be normalized and reserved characters removed.  
+> That means if you have a glyph file name of `a_R3ally-eXotic f1Le+Name.svg` the generated class name will be `.icon-myfont-a_R3ally-eXotic-f1Le-Name`.
+
 ## Configuration options
 
 ### Filename hashing

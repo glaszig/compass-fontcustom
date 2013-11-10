@@ -16,10 +16,4 @@ class GlyphMapTest < Test::Unit::TestCase
     assert_equal 0, @glyph_map.index_for_glyph('C')
   end
 
-  def test_glyph_name_normalization
-    glyphs = @glyph_map.instance_variable_get(:@glyphs)
-    assert ! glyphs.include?('google+')
-    assert glyphs.include?('google')
-  end
-
 end

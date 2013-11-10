@@ -18,7 +18,7 @@
   @each $glyph-name in $glyph-names {
 
     $index: index($glyph-names, $glyph-name);
-    $class_name: "icon-#{$name}-#{$glyph-name}";
+    $class_name: "icon-#{$name}-#{sanitize-symbol($glyph-name)}";
 
     .#{$class_name} {
       @if $base-class { @extend #{$base-class}; }

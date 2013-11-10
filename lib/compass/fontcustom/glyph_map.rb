@@ -15,7 +15,7 @@ module Compass
 
         # TODO: improve extraction of aboslute path
         path = File.dirname glyphs.first
-        glyphs.map! { |file| File.basename(file)[0..-5].gsub(/[^0-9A-Za-z]/, '') }
+        glyphs.map! { |file| File.basename(file)[0..-5] }
 
         new glyphs, path, name, context
       end

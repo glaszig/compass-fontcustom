@@ -8,6 +8,11 @@
 @import "demo-font/*.svg";
 @include all-demo-font-glyphs;
 
+body {
+  margin: 2em;
+  font-size: 200%;
+}
+
 .custom-class-name {
-  @include demo-font-glyph(C);
+  @include demo-font-glyph("a_R3ally-eXotic f1Le Name");
 }

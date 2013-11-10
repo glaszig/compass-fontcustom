@@ -78,6 +78,12 @@ module Compass
           font_url(font_file).value
         end
 
+        def sanitize_symbol(name)
+          sanitized = name.value.to_s.gsub(/[.+{};]+/, ' ').strip.gsub(/[ ]+/, '-')
+          Sass::Script::String.new sanitized
+        end
+        Sass::Script::Functions.declare :sanitize_symbol, [:name]
+
       end
 
     end

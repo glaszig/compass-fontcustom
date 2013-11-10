@@ -69,7 +69,7 @@ module Compass
             raise Compass::SpriteException, %Q{No glyph images were found matching "#{uri}" in the images path. Your current images path is: #{folder}}
           end
 
-          files.map { |f| File.basename(f)[0..-5].gsub(/[^0-9A-Za-z]/, '') }
+          files.map { |f| File.basename(f)[0..-5] }
         end
 
         # Returns `Sass::Engine` options with defaults
