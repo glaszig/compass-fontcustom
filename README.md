@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/glaszig/compass-fontcustom.png?branch=master)](https://travis-ci.org/glaszig/compass-fontcustom)
 [![Gem Version](https://badge.fury.io/rb/compass-fontcustom.png)](http://badge.fury.io/rb/compass-fontcustom)
 [![Test Coverage](https://coveralls.io/repos/glaszig/compass-fontcustom/badge.png?branch=master)](https://coveralls.io/r/glaszig/compass-fontcustom)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/glaszig/compass-fontcustom/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![endorse](https://api.coderwall.com/glaszig/endorsecount.png)](https://coderwall.com/glaszig)
 
 This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Compass](http://compass-style.org).
@@ -89,3 +90,6 @@ end
 [MIT](https://raw.github.com/glaszig/compass-fontcustom/master/LICENSE)
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/233dd6a31787ce3672d5e92e97a76965 "githalytics.com")](http://githalytics.com/glaszig/compass-fontcustom)
+
+
+
