@@ -27,6 +27,16 @@ And then execute:
 
     $ bundle
 
+## Configuration
+
+Compass::Fontcustom adds the following configuration variables to Compass.  
+Just add these to your project's `config/compass.rb`.
+
+- `fontcustom_hash`  
+  Enables/disables Fontcustom file name hashing.
+- `fontcustom_input_paths`  
+  Array of paths where to search for SVG files to build custom fonts from.
+
 ## Usage
 
 Syntactically it works like Compass' sprites feature.  
@@ -63,19 +73,6 @@ which will result into CSS along the lines of:
 > **Attention**  
 > Generated CSS class names will be normalized and reserved characters removed.  
 > That means if you have a glyph file name of `a_R3ally-eXotic f1Le+Name.svg` the generated class name will be `.icon-myfont-a_R3ally-eXotic-f1Le-Name`.
-
-## Configuration options
-
-### Filename hashing
-
-You can choose to disable file name hashes if you're already using an asset pipeline which handles this for you:
-Use the `fontcustom_hash` option in `config.rb`
-
-```ruby
-compass_config do |config|
-  config.fontcustom_hash = false
-end
-```
 
 ## Contributing
 

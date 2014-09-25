@@ -55,7 +55,7 @@ module Compass
         end
 
         def search_paths
-          [Compass.configuration.images_path.to_s]
+          Compass.configuration.fontcustom_input_paths.to_a
         end
 
         # Returns all glyph names inside the folder at `uri`.
