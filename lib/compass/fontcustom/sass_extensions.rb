@@ -20,7 +20,7 @@ module Compass
         # @param index [FixNum] the font's index
         # @return [Sass::Script::String]
         def glyph(index)
-          idx = (61696+index.value-1).to_s(16)
+          idx = (61696+index.value).to_s(16)
           css = %Q[&:before { content: "\\#{idx}"; }]
           Sass::Script::String.new %Q["\\#{idx}"]
         end
