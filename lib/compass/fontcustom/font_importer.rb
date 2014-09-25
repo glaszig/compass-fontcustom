@@ -2,7 +2,7 @@ require 'erb'
 require 'tempfile'
 require 'fontcustom/error'
 require 'fontcustom/options'
-require 'fontcustom/util'
+require 'fontcustom/utility'
 require 'fontcustom/generator/font'
 
 module Compass
@@ -118,8 +118,9 @@ module Compass
         # @param uri [String] the uri to glob files from
         # @return [Array]
         def files(uri)
-          [].tap do |files|
-            search_paths.each { |p| files.concat Dir[File.join p, uri] }
+          [].tap do |ary|
+            ary.concat Dir[uri]
+            search_paths.each { |p| ary.concat Dir[File.join p, uri] }
           end
         end
 

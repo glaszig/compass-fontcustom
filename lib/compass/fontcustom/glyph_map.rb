@@ -45,9 +45,12 @@ module Compass
             :output    => output_dir,
             :font_name => @name,
             :no_hash   => !Compass.configuration.fontcustom_hash,
-            :quiet     => true
+            :quiet     => true,
+            :manifest  => ".fontcustom-manifest.json"
           )
-          ::Fontcustom::Generator::Font.start [::Fontcustom::Options.new(args)]
+          options = ::Fontcustom::Options.new(args).options
+          manifest = ::Fontcustom::Manifest.new(args[:manifest], options)
+          ::Fontcustom::Generator::Font.new(manifest.manifest).generate
         end
       end
 
