@@ -16,11 +16,13 @@ module Compass
     end
 
     Compass::Configuration.add_configuration_property(:fontcustom_input_paths, "Array of paths where to search for SVG files to build custom fonts from") do
-      [Compass.configuration.images_path.to_s]
+      if defined? Rails
+        Rails.application.config.assets.paths
+      else
+        [Compass.configuration.images_path.to_s]
+      end
     end
 
     Sass.load_paths << FontImporter.new
   end
 end
-
-require "compass/fontcustom/rails" if defined?(Rails)
