@@ -29,7 +29,7 @@ And then execute:
 
 ## Configuration
 
-Compass::Fontcustom adds the following configuration variables to Compass.  
+Compass::Fontcustom adds the following configuration options to Compass.  
 Just add these to your project's `config/compass.rb`.
 
 - `fontcustom_hash`  
