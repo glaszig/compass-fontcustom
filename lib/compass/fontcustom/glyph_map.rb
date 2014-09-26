@@ -1,5 +1,6 @@
 require 'fontcustom'
 require 'compass/fontcustom/configurable'
+require 'thor'
 
 module Compass
   module Fontcustom
@@ -45,11 +46,9 @@ module Compass
           :font_name => @name,
           :no_hash   => !Compass.configuration.fontcustom_hash,
           :quiet     => true,
-          :manifest  => ".fontcustom-manifest.json"
+          :fonts     => []
         )
-        options = ::Fontcustom::Options.new(args).options
-        manifest = ::Fontcustom::Manifest.new(args[:manifest], options)
-        ::Fontcustom::Generator::Font.new(manifest.manifest).generate
+        ::Fontcustom::Base.new(args).compile
       end
 
       def filename

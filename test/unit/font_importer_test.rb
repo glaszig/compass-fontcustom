@@ -26,6 +26,7 @@ class FontImporterTest < Test::Unit::TestCase
   def teardown
     Compass.reset_configuration!
     FileUtils.rm_r @output_path
+    FileUtils.rm_r '.fontcustom-manifest.json'
   end
 
   def render(scss)
