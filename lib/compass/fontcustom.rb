@@ -23,6 +23,10 @@ module Compass
       end
     end
 
+    Compass::Configuration.add_configuration_property(:fontcustom_fonts_path, "Path to put generated font files in") do
+      Compass.configuration.fonts_path.to_s
+    end
+
     Sass.load_paths << FontImporter.new
   end
 end

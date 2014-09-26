@@ -58,7 +58,7 @@ module Compass
       end
 
       def output_dir
-        Compass.configuration.fonts_path.to_s
+        Compass.configuration.fontcustom_fonts_path
       end
 
       def to_s

@@ -36,6 +36,8 @@ Just add these to your project's `config/compass.rb`.
   Enables/disables Fontcustom file name hashing.
 - `fontcustom_input_paths`  
   Array of paths where to search for SVG files to build custom fonts from.
+- `fontcustom_fonts_path`  
+  Path to put generated font files in.
 
 ## Usage
 
