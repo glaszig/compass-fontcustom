@@ -5,6 +5,7 @@
  - Bundles Fontcustom 1.3.0 -- #10
  - Fixes an issue where fonts are not regenerated -- #11
  - Adds Compass configuration option `fontcustom_input_paths` -- #12
+ - Adds Compass configuration option `fontcustom_fonts_path` -- #13
  - Officially supporting Compass 1.0
 
 **1.2.0** Major release
