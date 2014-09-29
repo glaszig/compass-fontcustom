@@ -10,7 +10,7 @@ This is my attempt of integrating [Font Custom](http://fontcustom.com) with [Com
 
 ## Requirements
 
-Made for ruby 1.9+. Tested on 1.9.3 and 2.0.0.  
+Made for ruby 1.9+. Tested on 1.9.3, 2.0.0 and 2.1.3.  
 You'll need to have fontforge and the [WOFF font toolset](http://people.mozilla.com/~jkew/woff) installed as outlined in the Font Custom [installation instructions](http://fontcustom.com/#installation).
 
 ## Installation
