@@ -39,40 +39,20 @@ module Compass
 
       # Starts the Fontcustom font generator to write font files to disk.
       def generate
-        args = self.class.config.generator_options || {}
-        args.merge!(
-          :input     => path,
-          :output    => output_dir,
-          :font_name => @name,
-          :no_hash   => !with_hash?,
-          :quiet     => true,
-          :fonts     => []
-        )
-        ::Fontcustom::Base.new(args).compile
+        args = (self.class.config.generator_options || {}).
+          merge(output: Compass.configuration.fonts_path.to_s, quiet: true, fonts: []).
+          merge(Compass.configuration.fontcustom_options).
+          merge(font_name: @name, input: path)
+        @fontcustom = ::Fontcustom::Base.new(args)
+        @fontcustom.compile
       end
 
-      def filename
-        if with_hash?
-          glob = File.join(output_dir, "#{self.name}_#{'[0-9a-f]' * 32}.*")
-          file = Dir[glob].first
-          File.basename file, File.extname(file)
-        else
-          self.name
-        end
-      end
-
-      def output_dir
-        Compass.configuration.fontcustom_fonts_path
+      def fonts
+        @fontcustom.manifest.get(:fonts) if @fontcustom
       end
 
       def to_s
         @name.to_s
-      end
-
-    protected
-
-      def with_hash?
-        Compass.configuration.fontcustom_hash
       end
     end
   end
