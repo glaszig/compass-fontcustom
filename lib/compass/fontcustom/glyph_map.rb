@@ -44,7 +44,7 @@ module Compass
           :input     => path,
           :output    => output_dir,
           :font_name => @name,
-          :no_hash   => !Compass.configuration.fontcustom_hash,
+          :no_hash   => !with_hash?,
           :quiet     => true,
           :fonts     => []
         )
@@ -52,8 +52,13 @@ module Compass
       end
 
       def filename
-        file = glob.first
-        File.basename file, File.extname(file)
+        if with_hash?
+          glob = File.join(output_dir, "#{self.name}_#{'[0-9a-f]' * 32}.*")
+          file = Dir[glob].first
+          File.basename file, File.extname(file)
+        else
+          self.name
+        end
       end
 
       def output_dir
@@ -64,13 +69,11 @@ module Compass
         @name.to_s
       end
 
-      protected
+    protected
 
-        def glob
-          glob = File.join output_dir, "#{self.name}*"
-          Dir[glob]
-        end
-
+      def with_hash?
+        Compass.configuration.fontcustom_hash
+      end
     end
   end
 end
