@@ -45,6 +45,7 @@ module Compass
           merge(font_name: @name, input: path)
         @fontcustom = ::Fontcustom::Base.new(args)
         @fontcustom.compile
+        File.delete(@fontcustom.manifest.manifest) if Compass.configuration.fontcustom_discard_manifest
       end
 
       def fonts

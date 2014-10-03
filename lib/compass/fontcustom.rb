@@ -26,6 +26,11 @@ module Compass
       {}
     end
 
+    Compass::Configuration.add_configuration_property(:fontcustom_discard_manifest,
+      'Remove manifest each time after fonts are compiled') do
+      false
+    end
+
     Sass.load_paths << FontImporter.new
   end
 end
