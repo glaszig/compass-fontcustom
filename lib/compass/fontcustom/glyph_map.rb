@@ -49,7 +49,11 @@ module Compass
       end
 
       def fonts
-        @fontcustom.manifest.get(:fonts) if @fontcustom
+        if @fontcustom
+          @fontcustom.manifest.get(:fonts).each_with_object({}) do |font, result|
+            result[File.extname(font)[1..-1].to_sym] = font
+          end
+        end
       end
 
       def to_s

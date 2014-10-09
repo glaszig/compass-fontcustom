@@ -43,10 +43,13 @@ module Compass
           map.generate
           src = []
 
-          map.fonts.each do |font|
-            options = FONT_TYPE_OPTIONS[File.extname(font)[1..-1].to_sym]
-            url = glyph_font_type_url("#{font}#{options[:postfix]}" % {font_name: map.name})
-            src << "#{url} format('#{options[:format]}')"
+          fonts = map.fonts
+
+          FONT_TYPE_OPTIONS.each do |font_type, options|
+            if font = fonts[font_type]
+              url = glyph_font_type_url("#{font}#{options[:postfix]}" % {font_name: map.name})
+              src << "#{url} format('#{options[:format]}')"
+            end
           end
           Sass::Script::String.new src.join ", "
         end
