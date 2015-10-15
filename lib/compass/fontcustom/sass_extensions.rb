@@ -17,12 +17,13 @@ module Compass
 
         # Returns `:before` pseudo class styles for the letter at `index` of the font.
         #
-        # @param index [FixNum] the font's index
+        # @param map [Compass::Fontcustom::GlyphMap] a glyph map
+        # @param glyph [String] glyph name
         # @return [Sass::Script::String]
-        def glyph(index)
-          idx = (61696+index.value-1).to_s(16)
-          css = %Q[&:before { content: "\\#{idx}"; }]
-          Sass::Script::String.new %Q["\\#{idx}"]
+        def glyph(map, glyph)
+          # Name transform should be implemented as in FontCustom
+          code = map.codepoint glyph.to_s.gsub(/^"|"$/, '').gsub(/[.+{};]+/, ' ').gsub(/[ ]+/, '-')
+          Sass::Script::String.new "'\\#{code.to_i.to_s(16)}'"
         end
         Sass::Script::Functions.declare :letter, [:index]
 

@@ -46,9 +46,17 @@ module Compass
           :font_name => @name,
           :no_hash   => !Compass.configuration.fontcustom_hash,
           :quiet     => true,
-          :fonts     => []
+          :fonts     => [],
+          :templates => []
         )
         ::Fontcustom::Base.new(args).compile
+
+        manifest = JSON.parse File.read '.fontcustom-manifest.json'
+        @glyphs = manifest["glyphs"].map{ |key,value| {key => value["codepoint"]} }.reduce(:merge)
+      end
+
+      def codepoint(glyph)
+        @glyphs.fetch(glyph)
       end
 
       def filename
