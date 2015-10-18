@@ -16,6 +16,10 @@ module Compass
       true
     end
 
+    Compass::Configuration.add_configuration_property(:fontcustom_autowidth, "enables/disables fontcustom autowidth option") do
+      false
+    end
+
     Compass::Configuration.add_configuration_property(:fontcustom_input_paths, "Array of paths where to search for SVG files to build custom fonts from") do
       if defined? Rails
         Rails.application.config.assets.paths

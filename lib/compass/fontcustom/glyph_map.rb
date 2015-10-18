@@ -46,6 +46,7 @@ module Compass
           :font_name => @name,
           :no_hash   => !Compass.configuration.fontcustom_hash,
           :quiet     => true,
+          :autowidth => Compass.configuration.fontcustom_autowidth,
           :fonts     => [],
           :templates => []
         )

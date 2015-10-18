@@ -38,6 +38,8 @@ Just add these to your project's `config/compass.rb`.
   Array of paths where to search for SVG files to build custom fonts from.
 - `fontcustom_fonts_path`  
   Path to put generated font files in.
+- `fontcustom_autowidth`
+  Enables/disables Fontcustom autowidth option.
 
 ## Usage
 

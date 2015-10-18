@@ -137,7 +137,7 @@ module Compass
       end
 
       # Unused
-      def public_url(file, base)
+      def public_url(*args)
         nil
       end
 
