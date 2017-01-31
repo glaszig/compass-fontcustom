@@ -67,7 +67,7 @@ module Compass
       protected
 
         def glob
-          glob = File.join output_dir, "#{self.name}*"
+          glob = File.join output_dir, "#{self.name}*.ttf"
           Dir[glob]
         end
 
