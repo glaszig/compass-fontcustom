@@ -6,5 +6,5 @@ gemspec
 gem 'coveralls', :require => false
 group :development do
 	gem 'autotest-standalone'
-	gem 'autotest-fsevent', '>= 0.2.9'
+	gem 'autotest-fsevent'
 end
