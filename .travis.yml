@@ -23,6 +23,7 @@ deploy:
   api_key:
     secure: Z4grtvFtt3v6tYg9f1I1BQ6TU/rbEG4Q03kmgakAkeVcaArlY4HgXFFh+KsAU+AyV0aZXUgdhfz67cGwUoyHEn7J/NdLiTHdqjxRm0EIkiRhBOt2j03/TJRHCq2sBpaHquXsZLqvf25A5HD9EKH6GlxUJSDYcYWAG7JbONNUd4Y=
   on:
+    repo: glaszig/compass-fontcustom
     tags: true
     rvm: 2.4.0
   skip_cleanup: true
