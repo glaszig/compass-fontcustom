@@ -18,8 +18,8 @@ class FontImporterTest < Test::Unit::TestCase
     SCSS
     Compass.add_configuration(config, "fontcustom_config")
 
-    Compass::Fontcustom::GlyphMap.configure do |config|
-      config.generator_options = { :debug => false }
+    Compass::Fontcustom::GlyphMap.configure do |c|
+      c.generator_options = { :debug => false }
     end
   end
 
@@ -64,9 +64,9 @@ class FontImporterTest < Test::Unit::TestCase
       @include all-myfont-glyphs;
     SCSS
 
-    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.svg')
-    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.ttf')
-    assert File.exists? File.join(Compass.configuration.fonts_path, 'myfont.woff')
+    assert File.exist? File.join(Compass.configuration.fonts_path, 'myfont.svg')
+    assert File.exist? File.join(Compass.configuration.fonts_path, 'myfont.ttf')
+    assert File.exist? File.join(Compass.configuration.fonts_path, 'myfont.woff')
 
     assert css =~ %r{.#{fontname}-font}, "base font class missing"
     assert css =~ %r{.icon-#{fontname}-c}i, "icon c css class missing"
