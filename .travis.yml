@@ -18,6 +18,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
 deploy:
+  skip_cleanup: true
   provider: rubygems
   api_key:
     secure: NJ4Wy3DVCwFTsAJTSME8+B6Ncmce4mU9YsuKcGUjKSzGeoXVHtUStlRALB/pgLU7VKGUF+r9d5XKr/TEDZrKBlzxZ1AYXEn5T/OlQ0bEPDQTEHt06aAEbg4BKqP+yzEaH2LtC6Skgi5VOIWXDjG71Aluh+ZdBlG08RVQuEGTbfs=
