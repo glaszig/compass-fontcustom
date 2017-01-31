@@ -57,7 +57,7 @@ class FontImporterTest < Test::Unit::TestCase
   def test_should_skip_file_name_hashes_if_option_is_set
     fontname = 'myfont'
 
-    Compass.configuration.fontcustom_hash = false
+    Compass.configuration.fontcustom_options[:no_hash] = true
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
@@ -78,7 +78,7 @@ class FontImporterTest < Test::Unit::TestCase
   def test_glyph_mixin
     fontname = 'myfont'
 
-    Compass.configuration.fontcustom_hash = false
+    Compass.configuration.fontcustom_options[:no_hash] = true
 
     css = render <<-SCSS
       @import "#{fontname}/*.svg";
