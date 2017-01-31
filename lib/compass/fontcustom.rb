@@ -6,6 +6,7 @@ require "compass/fontcustom/sass_extensions"
 require "compass/fontcustom/glyph_map"
 require "compass/fontcustom/font_importer"
 require "compass/fontcustom/patches"
+require "compass/fontcustom/deprecations"
 
 module Compass
 	# This module registers the gem as a Compass framework source,
@@ -21,6 +22,8 @@ module Compass
         [Compass.configuration.images_path.to_s]
       end
     end
+
+    Compass::Configuration.add_configuration_property(:fontcustom_fonts_path, "(Deprecated) Path to put generated font files in")
 
     Compass::Configuration.add_configuration_property(:fontcustom_options,
       'Options passed to fontcustom when generating fonts') do

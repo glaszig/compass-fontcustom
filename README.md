@@ -30,14 +30,12 @@ And then execute:
 Compass::Fontcustom adds the following configuration options to Compass.  
 Just add these to your project's `config/compass.rb`.
 
-- `fontcustom_hash`  
-  Enables/disables Fontcustom file name hashing.
 - `fontcustom_input_paths`  
   Array of paths where to search for SVG files to build custom fonts from.
-- `fontcustom_fonts_path`  
-  Path to put generated font files in.
-- `fontcustom_autowidth`
-  Enables/disables Fontcustom autowidth option.
+- `fontcustom_discard_manifest`  
+  Boolean to configure to delete the manifest file after each run.
+- `fontcustom_options`  
+  A hash to pass native options to FontCustom.
 
 ## Usage
 

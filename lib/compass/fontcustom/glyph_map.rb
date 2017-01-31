@@ -40,7 +40,7 @@ module Compass
       # Starts the Fontcustom font generator to write font files to disk.
       def generate
         args = (self.class.config.generator_options || {}).
-          merge(output: Compass.configuration.fonts_path.to_s, quiet: true, fonts: []).
+          merge(output: output_dir, quiet: true, fonts: []).
           merge(Compass.configuration.fontcustom_options).
           merge(font_name: @name, input: path)
         @fontcustom = ::Fontcustom::Base.new(args)
@@ -62,6 +62,10 @@ module Compass
 
       def to_s
         @name.to_s
+      end
+
+      def output_dir
+        Compass.configuration.fontcustom_fonts_path || Compass.configuration.fonts_path
       end
     end
   end
