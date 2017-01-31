@@ -16,14 +16,11 @@
 @mixin glyphs($map, $glyph-names, $base-class: false) {
   $name: glyph-font-name($map);
   @each $glyph-name in $glyph-names {
-
-    $index: index($glyph-names, $glyph-name);
     $class_name: "icon-#{$name}-#{sanitize-symbol($glyph-name)}";
 
     .#{$class_name} {
       @if $base-class { @extend #{$base-class}; }
-      &:before { content: glyph($index); }
+      &:before { content: glyph($map, $glyph-name); }
     }
-
   }
 }

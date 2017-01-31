@@ -15,6 +15,5 @@ $<%= name %>-glyphs: glyph-map("<%= uri %>");
 
 @mixin <%= name %>-glyph($glyph-name) {
   @extend #{$<%= name %>-font-base-class};
-  $index: index(<%= glyph_names.map{ |g| "'#{g}'" }.join " " %>, $glyph-name);
-  &:before { content: glyph($index); }
+  &:before { content: glyph($<%= name %>-glyphs, $glyph-name); }
 }

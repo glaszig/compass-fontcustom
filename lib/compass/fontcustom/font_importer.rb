@@ -136,6 +136,11 @@ module Compass
         nil
       end
 
+      # Unused
+      def public_url(*args)
+        nil
+      end
+
       # Unused. Just returns nil.
       def find_relative(uri, base, options)
         nil
