@@ -1,5 +1,10 @@
 # Changelog
 
+**1.3.8** Minor release
+
+ - Use FontCustom's codepoints when regenerating fonts to add/remove glyphs -- #19
+ - Fixed an issue picking up the wrong font filename -- #18
+
 **1.3.0** Major release
 
  - Bundles Fontcustom 1.3.0 -- #10
