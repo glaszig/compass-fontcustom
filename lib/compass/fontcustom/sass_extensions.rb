@@ -22,8 +22,8 @@ module Compass
         # @return [Sass::Script::String]
         def glyph(map, glyph)
           # Name transform should be implemented as in FontCustom
-          code = map.codepoint glyph.to_s.gsub(/^"|"$/, '').gsub(/[.+{};]+/, ' ').gsub(/[ ]+/, '-')
-          Sass::Script::String.new "'\\#{code.to_i.to_s(16)}'"
+          glyph = map.glyphs[Util.sanitize_symbol(glyph).to_sym]
+          Sass::Script::String.new "'\\#{glyph[:codepoint]}'"
         end
         Sass::Script::Functions.declare :letter, [:index]
 
@@ -83,8 +83,7 @@ module Compass
         end
 
         def sanitize_symbol(name)
-          sanitized = name.value.to_s.gsub(/[.+{};]+/, ' ').strip.gsub(/[ ]+/, '-')
-          Sass::Script::String.new sanitized
+          Sass::Script::String.new Util.sanitize_symbol name.value
         end
         Sass::Script::Functions.declare :sanitize_symbol, [:name]
 

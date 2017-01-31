@@ -56,6 +56,10 @@ module Compass
         end
       end
 
+      def glyphs
+        @fontcustom.manifest.get :glyphs
+      end
+
       def to_s
         @name.to_s
       end

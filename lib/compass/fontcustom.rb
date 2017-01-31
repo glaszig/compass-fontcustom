@@ -1,5 +1,6 @@
 require "compass"
 require "compass/fontcustom/version"
+require "compass/fontcustom/util"
 require "compass/fontcustom/compass"
 require "compass/fontcustom/sass_extensions"
 require "compass/fontcustom/glyph_map"
