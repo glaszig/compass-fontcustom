@@ -2,9 +2,9 @@ language: ruby
 before_script:
   - sudo apt-get update -y
   - sudo apt-get install -y fontforge eot-utils unzip
-  - "sudo apt-get install -y ruby*.*.*-dev"
-  - "wget http://people.mozilla.com/~jkew/woff/woff-code-latest.zip"
-  - "unzip woff-code-latest.zip -d sfnt2woff && cd sfnt2woff && make && sudo mv sfnt2woff /usr/local/bin/"
+  - sudo apt-get install -y ruby*.*.*-dev
+  - wget http://people.mozilla.com/~jkew/woff/woff-code-latest.zip
+  - unzip woff-code-latest.zip -d sfnt2woff && cd sfnt2woff && make && sudo mv sfnt2woff /usr/local/bin/
 script: bundle exec rake test
 rvm:
   - 2.0.0
@@ -19,11 +19,10 @@ matrix:
     - rvm: ruby-head
 deploy:
   provider: rubygems
-  gem: compass-fontcustom
   api_key:
-    secure: Z4grtvFtt3v6tYg9f1I1BQ6TU/rbEG4Q03kmgakAkeVcaArlY4HgXFFh+KsAU+AyV0aZXUgdhfz67cGwUoyHEn7J/NdLiTHdqjxRm0EIkiRhBOt2j03/TJRHCq2sBpaHquXsZLqvf25A5HD9EKH6GlxUJSDYcYWAG7JbONNUd4Y=
+    secure: NJ4Wy3DVCwFTsAJTSME8+B6Ncmce4mU9YsuKcGUjKSzGeoXVHtUStlRALB/pgLU7VKGUF+r9d5XKr/TEDZrKBlzxZ1AYXEn5T/OlQ0bEPDQTEHt06aAEbg4BKqP+yzEaH2LtC6Skgi5VOIWXDjG71Aluh+ZdBlG08RVQuEGTbfs=
+  gem: compass-fontcustom
   on:
-    repo: glaszig/compass-fontcustom
     tags: true
+    repo: glaszig/compass-fontcustom
     rvm: 2.4.0
-  skip_cleanup: true
