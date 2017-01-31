@@ -1,9 +1,12 @@
 # Changelog
 
-**1.3.8** Minor release
+**1.3.1** Minor release
 
  - Use FontCustom's codepoints when regenerating fonts to add/remove glyphs -- #19
  - Fixed an issue picking up the wrong font filename -- #18
+ - Dropped Ruby 1.9 support
+ - Testing on all Ruby 2.x versions
+ - Deprecated options `fontcustom_fonts_path` in favor of `fontcustom_options`
 
 **1.3.0** Major release
 
