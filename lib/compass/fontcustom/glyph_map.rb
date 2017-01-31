@@ -39,47 +39,30 @@ module Compass
 
       # Starts the Fontcustom font generator to write font files to disk.
       def generate
-        args = self.class.config.generator_options || {}
-        args.merge!(
-          :input     => path,
-          :output    => output_dir,
-          :font_name => @name,
-          :no_hash   => !Compass.configuration.fontcustom_hash,
-          :quiet     => true,
-          :autowidth => Compass.configuration.fontcustom_autowidth,
-          :fonts     => [],
-          :templates => []
-        )
-        ::Fontcustom::Base.new(args).compile
-
-        manifest = JSON.parse File.read '.fontcustom-manifest.json'
-        @glyphs = manifest["glyphs"].map{ |key,value| {key => value["codepoint"]} }.reduce(:merge)
+        args = (self.class.config.generator_options || {}).
+          merge(output: Compass.configuration.fonts_path.to_s, quiet: true, fonts: []).
+          merge(Compass.configuration.fontcustom_options).
+          merge(font_name: @name, input: path)
+        @fontcustom = ::Fontcustom::Base.new(args)
+        @fontcustom.compile
+        File.delete(@fontcustom.manifest.manifest) if Compass.configuration.fontcustom_discard_manifest
       end
 
-      def codepoint(glyph)
-        @glyphs.fetch(glyph)
+      def fonts
+        if @fontcustom
+          @fontcustom.manifest.get(:fonts).each_with_object({}) do |font, result|
+            result[File.extname(font)[1..-1].to_sym] = font
+          end
+        end
       end
 
-      def filename
-        file = glob.first
-        File.basename file, File.extname(file)
-      end
-
-      def output_dir
-        Compass.configuration.fontcustom_fonts_path
+      def glyphs
+        @fontcustom.manifest.get :glyphs
       end
 
       def to_s
         @name.to_s
       end
-
-      protected
-
-        def glob
-          glob = File.join output_dir, "#{self.name}*.ttf"
-          Dir[glob]
-        end
-
     end
   end
 end

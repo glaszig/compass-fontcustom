@@ -8,11 +8,11 @@ module Compass
 
         # Font type format mappings used in css font-face declarations.
         # @see #glyph_font_sources
-        FONT_TYPE_FORMATS = {
-          'eot?#iefix'       => 'embedded-opentype',
-          'woff'             => 'woff',
-          'ttf'              => 'truetype',
-          "svg#%{font_name}" => 'svg'
+        FONT_TYPE_OPTIONS = {
+          eot: {format: 'embedded-opentype', postfix: '?#iefix'},
+          woff: {format: 'woff'},
+          ttf: {format: 'truetype'},
+          svg: {format: 'svg', postfix: '#%{font_name}'}
         }
 
         # Returns `:before` pseudo class styles for the letter at `index` of the font.
@@ -22,8 +22,8 @@ module Compass
         # @return [Sass::Script::String]
         def glyph(map, glyph)
           # Name transform should be implemented as in FontCustom
-          code = map.codepoint glyph.to_s.gsub(/^"|"$/, '').gsub(/[.+{};]+/, ' ').gsub(/[ ]+/, '-')
-          Sass::Script::String.new "'\\#{code.to_i.to_s(16)}'"
+          glyph = map.glyphs[Util.sanitize_symbol(glyph).to_sym]
+          Sass::Script::String.new "'\\#{glyph[:codepoint]}'"
         end
         Sass::Script::Functions.declare :letter, [:index]
 
@@ -43,9 +43,14 @@ module Compass
         def glyph_font_sources(map)
           map.generate
           src = []
-          FONT_TYPE_FORMATS.each do |type, format|
-            url = glyph_font_type_url map, type
-            src << "#{url} format('#{format}')"
+
+          fonts = map.fonts
+
+          FONT_TYPE_OPTIONS.each do |font_type, options|
+            if font = fonts[font_type]
+              url = glyph_font_type_url("#{font}#{options[:postfix]}" % {font_name: map.name})
+              src << "#{url} format('#{options[:format]}')"
+            end
           end
           Sass::Script::String.new src.join ", "
         end
@@ -72,16 +77,13 @@ module Compass
         # Helper method. Returns a `Sass::Script::Functions#font_url for the font of `type` in `map`.
         #
         # @return [String]
-        def glyph_font_type_url(map, type)
-          type = type % {font_name: map.name}
-          file_name = "#{map.filename}.#{type}"
-          font_file = Sass::Script::String.new file_name
+        def glyph_font_type_url(file_path)
+          font_file = Sass::Script::String.new File.basename(file_path)
           font_url(font_file).value
         end
 
         def sanitize_symbol(name)
-          sanitized = name.value.to_s.gsub(/[.+{};]+/, ' ').strip.gsub(/[ ]+/, '-')
-          Sass::Script::String.new sanitized
+          Sass::Script::String.new Util.sanitize_symbol name.value
         end
         Sass::Script::Functions.declare :sanitize_symbol, [:name]
 
