@@ -17,3 +17,10 @@ matrix:
   fast_finish: true
   allow_failures:
     - rvm: ruby-head
+deploy:
+  provider: rubygems
+  gem: compass-fontcustom
+  api_key:
+    secure: Z4grtvFtt3v6tYg9f1I1BQ6TU/rbEG4Q03kmgakAkeVcaArlY4HgXFFh+KsAU+AyV0aZXUgdhfz67cGwUoyHEn7J/NdLiTHdqjxRm0EIkiRhBOt2j03/TJRHCq2sBpaHquXsZLqvf25A5HD9EKH6GlxUJSDYcYWAG7JbONNUd4Y=
+  on:
+    tags: true

@@ -7,4 +7,5 @@ gem 'coveralls', :require => false
 group :development do
 	gem 'autotest-standalone'
 	gem 'autotest-fsevent'
+  gem 'travis'
 end
