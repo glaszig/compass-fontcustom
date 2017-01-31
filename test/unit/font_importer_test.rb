@@ -21,6 +21,8 @@ class FontImporterTest < Test::Unit::TestCase
     Compass::Fontcustom::GlyphMap.configure do |c|
       c.generator_options = { :debug => false }
     end
+
+    Compass.configuration.fontcustom_options = {}
   end
 
   def teardown
